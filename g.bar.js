@@ -283,8 +283,17 @@
             }
         }
 
-        chart.label = function (labels, isBottom) {
+        chart.label = function (labels, isBottom, txtattr, font, size) {
             labels = labels || [];
+
+            // If no txtattr is passed in.
+            if(Raphael.is(txtattr, "string")){
+                size = font;
+                font = txtattr;
+                txtattr = {};
+            }
+
+            size = size || 12;
             this.labels = paper.set();
 
             var L, l = -Infinity;
@@ -299,7 +308,11 @@
                         if (j == multi - 1) {
                             var label = Raphael.g.labelise(labels[i], tot, total);
 
-                            L = paper.text(bars[i * (multi || 1) + j].x, y + height - barvgutter / 2, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
+                            if(font){
+                                L = paper.print(bars[i * (multi || 1) + j].x, y + height - barvgutter / 2, label, paper.getFont(font), size).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
+                            } else {
+                                L = paper.text(bars[i * (multi || 1) + j].x, y + height - barvgutter / 2, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
+                            }
 
                             var bb = L.getBBox();
 
@@ -316,8 +329,18 @@
                 for (var i = 0; i < len; i++) {
                     for (var j = 0; j < (multi || 1); j++) {
                         var label = Raphael.g.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total);
+                        var _x = bars[i * (multi || 1) + j].x,
+                            _y = isBottom ? y + height - barvgutter / 2 : bars[i * (multi || 1) + j].y - 10;
 
-                        L = paper.text(bars[i * (multi || 1) + j].x, isBottom ? y + height - barvgutter / 2 : bars[i * (multi || 1) + j].y - 10, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
+                        if(font){
+                            L = paper.print(_x, _y, label, paper.getFont(font), size, "baseline").attr(txtattr);
+                            var _offset = (L.getBBox().width / 2);
+                            L.remove();
+                            L = paper.print(_x - _offset, _y, label, paper.getFont(font), size, "baseline").attr(txtattr);
+                            L.insertBefore(covers[i * (multi || 1) + j]);
+                        } else {
+                            L = paper.text(_x, _y, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
+                        }
 
                         var bb = L.getBBox();
 
