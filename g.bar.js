@@ -297,7 +297,7 @@
                         tot += multi ? values[j][i] : values[i];
 
                         if (j == multi - 1) {
-                            var label = paper.labelise(labels[i], tot, total);
+                            var label = Raphael.g.labelise(labels[i], tot, total);
 
                             L = paper.text(bars[i * (multi || 1) + j].x, y + height - barvgutter / 2, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
 
@@ -315,7 +315,7 @@
             } else {
                 for (var i = 0; i < len; i++) {
                     for (var j = 0; j < (multi || 1); j++) {
-                        var label = paper.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total);
+                        var label = Raphael.g.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total);
 
                         L = paper.text(bars[i * (multi || 1) + j].x, isBottom ? y + height - barvgutter / 2 : bars[i * (multi || 1) + j].y - 10, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
 
