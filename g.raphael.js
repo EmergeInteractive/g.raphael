@@ -789,9 +789,10 @@ Raphael.g = {
         return { from: f, to: t, power: i };
     },
 
-    axis: function (x, y, length, from, to, steps, orientation, labels, type, dashsize, paper) {
+    axis: function (x, y, length, from, to, steps, orientation, labels, type, bars, dashsize, paper) {
         dashsize = dashsize == null ? 2 : dashsize;
         type = type || "t";
+        bars = bars || false;
         steps = steps || 10;
         paper = arguments[arguments.length-1] //paper is always last argument
 
@@ -858,16 +859,20 @@ Raphael.g = {
             }
         }
 
-        var res = paper.path(path);
+        if(bars) {
+            var res = paper.path(path);
 
-        res.text = text;
-        res.all = paper.set([res, text]);
-        res.remove = function () {
-            this.text.remove();
-            this.constructor.prototype.remove.call(this);
-        };
+            res.text = text;
+            res.all = paper.set([res, text]);
+            res.remove = function () {
+                this.text.remove();
+                this.constructor.prototype.remove.call(this);
+            };
 
-        return res;
+            return res;
+        }else{
+            return text;
+        }
     },
     
     labelise: function(label, val, total) {
