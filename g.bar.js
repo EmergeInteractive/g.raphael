@@ -306,16 +306,23 @@
                         tot += multi ? values[j][i] : values[i];
 
                         if (j == multi - 1) {
+                            var _y = isBottom ? y + height - barvgutter / 2 : bars[j][i].y - 10;
                             var label = Raphael.g.labelise(labels[i], tot, total);
+                            window.bars = bars;
+                            window.covers = covers;
 
                             if(font){
-                                L = paper.print(bars[i * (multi || 1) + j].x, y + height - barvgutter / 2, label, paper.getFont(font), size).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
+                                var _x = bars[j][i].x;
+                                L = paper.print(_x, _y, label, paper.getFont(font), size).attr(txtattr);
+                                var _offset = (L.getBBox().width / 2);
+                                L.remove();
+                                L = paper.print(_x - _offset, _y, label, paper.getFont(font), size, "baseline").attr(txtattr);
+                                L.insertBefore(covers[i * (multi || 1) + j]);
                             } else {
-                                L = paper.text(bars[i * (multi || 1) + j].x, y + height - barvgutter / 2, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
+                                L = paper.text(bars[j][i].x, _y, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
                             }
 
                             var bb = L.getBBox();
-
                             if (bb.x - 7 < l) {
                                 L.remove();
                             } else {
