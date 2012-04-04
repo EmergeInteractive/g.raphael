@@ -306,6 +306,9 @@
                         if (j == multi - 1) {
                             var _y = isBottom ? y + height - barvgutter / 2 : bars[j][i].y - 10;
                             var label = Raphael.g.labelise(labels[i], tot, total);
+                            if(label_opts.formatter){
+                                label = label_opts.formatter(label);
+                            }
                             window.bars = bars;
                             window.covers = covers;
 
