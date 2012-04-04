@@ -191,7 +191,7 @@
         total = (opts.to) || total;
 
         var barwidth = width / (len * (100 + gutter) + gutter) * 100,
-            barhgutter = barwidth * gutter / 100,
+            barhgutter = opts.hgutter == null ? barwidth * gutter / 100 : opts.hgutter
             barvgutter = opts.vgutter == null ? 20 : opts.vgutter,
             stack = [],
             X = x + barhgutter,
