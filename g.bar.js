@@ -283,15 +283,13 @@
             }
         }
 
-        chart.label = function (labels, isBottom, txtattr, font, size) {
+        chart.label = function (labels, isBottom, label_opts) {
             labels = labels || [];
+            labael_opts = label_opts || {};
 
-            // If no txtattr is passed in.
-            if(Raphael.is(txtattr, "string")){
-                size = font;
-                font = txtattr;
-                txtattr = {};
-            }
+            var size = label_opts.size,
+                font = label_opts.font,
+                txtattr = label_opts.txtattr;
 
             size = size || 12;
             this.labels = paper.set();
