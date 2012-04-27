@@ -288,8 +288,9 @@
             labael_opts = label_opts || {};
 
             var size = label_opts.size,
-                font = label_opts.font,
-                txtattr = label_opts.txtattr;
+                txtattr = label_opts.txtattr || {};
+
+            font = txtattr.font
 
             size = size || 12;
             this.labels = paper.set();
