@@ -337,7 +337,7 @@
                 for (var i = 0; i < len; i++) {
                     for (var j = 0; j < (multi || 1); j++) {
                         var label = Raphael.g.labelise(multi ? labels[j] && labels[j][i] : labels[i], multi ? values[j][i] : values[i], total);
-                        var _x = bars[i * (multi || 1) + j].x,
+                        var _x = multi ? bars[j][i].x : bars[i * (multi || 1) + j].x,
                             _y = isBottom ? y + height - barvgutter / 2 : bars[i * (multi || 1) + j].y - 10;
 
                         if(font){
