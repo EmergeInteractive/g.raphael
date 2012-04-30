@@ -802,7 +802,7 @@ Raphael.g = {
             t = ends.to,
             i = ends.power,
             j = 0,
-            txtattr = { font: "11px 'Fontin Sans', Fontin-Sans, sans-serif" },
+            txtattr = { font: "11px 'Stratum1 Regular'" },
             text = paper.set(),
             d;
 
