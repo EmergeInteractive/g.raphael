@@ -341,11 +341,15 @@
                         var _x = multi ? bars[j][i].x : bars[i * (multi || 1) + j].x,
                             _y = isBottom ? y + height - barvgutter / 2 : bars[i * (multi || 1) + j].y - 10;
 
+                        if(label_opts.formatter){
+                            label = label_opts.formatter(label);
+                        }
+
                         if(font){
                             L = paper.print(_x, _y, label, paper.getFont(font), size, "baseline").attr(txtattr);
                             var _offset = (L.getBBox().width / 2);
                             L.remove();
-                            L = paper.print(_x - _offset, _y, label, paper.getFont(font), size, "baseline").attr(txtattr);
+                            L = paper.print(_x - _offset * 1.1, _y, label, paper.getFont(font), size, isBottom ? null : "baseline").attr(txtattr);
                             L.insertBefore(covers[i * (multi || 1) + j]);
                         } else {
                             L = paper.text(_x, _y, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
