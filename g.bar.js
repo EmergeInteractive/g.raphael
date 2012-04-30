@@ -318,7 +318,7 @@
                                 L = paper.print(_x, _y, label, paper.getFont(font), size).attr(txtattr);
                                 var _offset = (L.getBBox().width / 2);
                                 L.remove();
-                                L = paper.print(_x - _offset * 1.1, _y, label, paper.getFont(font), size, "baseline").attr(txtattr);
+                                L = paper.print(_x - _offset * 1.1, _y, label, paper.getFont(font), size, isBottom ? null : "baseline").attr(txtattr);
                                 L.insertBefore(covers[i * (multi || 1) + j]);
                             } else {
                                 L = paper.text(bars[j][i].x, _y, label).attr(txtattr).insertBefore(covers[i * (multi || 1) + j]);
